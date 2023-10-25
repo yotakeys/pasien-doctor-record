@@ -19,6 +19,10 @@
                     <x-nav-link :href="route('list-record')" :active="request()->routeIs('list-record')">
                         {{ __('List') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('form-record.get')" :active="request()->routeIs('form-record.get')">
+                        {{ __('Form') }}
+                    </x-nav-link>
                 </div>
             </div>
 

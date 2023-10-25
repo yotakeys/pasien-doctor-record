@@ -24,6 +24,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
     Route::get('list-record', [RecordController::class, 'index'])->name('list-record');
+    Route::get('form-record', [RecordController::class, 'getForm'])->name('form-record.get');
+    Route::post('form-record', [RecordController::class, 'store'])->name('form-record.add');
 });
 
 Route::middleware('auth')->group(function () {
