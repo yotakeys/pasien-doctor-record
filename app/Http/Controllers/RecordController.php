@@ -10,10 +10,24 @@ use Illuminate\Support\Str;
 
 class RecordController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $records = Record::with('pasien', 'doctor')->get();
-        return view('list-record', ['records' => $records]);
+        $doctor = Doctor::all();
+        $pasien = Pasien::all();
+
+        if ($request->has('pasien_id') && $request->has('doctor_id')) {
+            $records = Record::with('pasien', 'doctor')->where('pasien_id', $request->pasien_id)->where('doctor_id', $request->doctor_id)->get();
+            return view('list-record', ['records' => $records, 'doctor' => $doctor, 'pasien' => $pasien]);
+        } else if ($request->has('pasien_id')) {
+            $records = Record::with('pasien', 'doctor')->where('pasien_id', $request->pasien_id)->get();
+            return view('list-record', ['records' => $records, 'doctor' => $doctor, 'pasien' => $pasien]);
+        } else if ($request->has('doctor_id')) {
+            $records = Record::with('pasien', 'doctor')->where('doctor_id', $request->doctor_id)->get();
+            return view('list-record', ['records' => $records, 'doctor' => $doctor, 'pasien' => $pasien]);
+        } else {
+            $records = Record::with('pasien', 'doctor')->get();
+            return view('list-record', ['records' => $records, 'doctor' => $doctor, 'pasien' => $pasien]);
+        }
     }
 
     public function getForm()
