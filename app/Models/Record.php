@@ -16,4 +16,14 @@ class Record extends Model
         'suhu',
         'resep_url'
     ];
+
+    public function pasien()
+    {
+        return $this->belongsTo(Pasien::class, 'pasien_id');
+    }
+
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class, 'doctor_id');
+    }
 }
